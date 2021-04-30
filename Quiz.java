@@ -2,44 +2,77 @@ import javax.swing.JOptionPane;
 
 public class Quiz {
 
-	public static void main(String[] args) {
-		// declaring a string and initializing with question to be asked
-		String question = "What is a computer?\n";
+	// static member variables: number of questions and number of correct answers initialized to the value 0
+	static int nQuestions = 0;
+	static int nCorrect = 0;
 
-		// assigning multiple choices to the question string
-		question += "A. a person who has acquired the knowledge of computer science, the study of the theoretical foundations of information and computation and their application.\n";
-		question += "B. a machine or device that performs processes, calculations and operations based on instructions provided by a software or hardware program.\n";
-		question += "C. is a vast network that connects computers all over the world.\n";
-		question += "D. is the process of designing and building an executable computer program to accomplish a specific computing result or to perform a specific task. \n";
-		question += "E. a piece of code which is capable of copying itself and typically has a detrimental effect, such as corrupting the system or destroying data.\n";
-
-		// staring a while loop to ask question and validate the answers provided by the user
-		// the loop will continue until the conditions bellow are satisfied
+	// static method that asks a question until the user provided a valid input
+	static String ask(String question) {
 		while (true) {
-
-			// declaring a string to hold the answer provided by the user and then converting the letter supplied to upper case
+			// asking a question
 			String answer = JOptionPane.showInputDialog(question);
+			// converting the captured answer into upper case letter
 			answer = answer.toUpperCase();
-
-			// if else clause to check for the valid entry
-			if (answer.equals("A") || answer.equals("B") || answer.equals("C") || answer.equals("D") || answer.equals("E")) {
-
-				// if else clause to check for the correct answer
-				if (answer.equals("B")) {
-					JOptionPane.showMessageDialog(null, "Correct!");
-					break;
-				} else {
-					JOptionPane.showMessageDialog(null, "Incorrect. Please try again.");
-					continue;
-				}
-
-				} else {
-					JOptionPane.showMessageDialog(null, "Invalid answer. Please enter A, B, C, D or E.");
-					continue;
-			}
+			// evaluating the answer input from user
+			boolean valid = (answer.equals("A") || answer.equals("B") || answer.equals("C") || answer.equals("D") || answer.equals("E"));
+			// if input is a valid letter then we are returning the value
+			if (valid) return answer;
+			// if input is an invalid letter we warn the user and ask to provide the correct letter
+			JOptionPane.showMessageDialog(null,"Invalid answer. Please enter A, B, C, D, or E.");
 		}
-
-
 	}
 
+	// static method to check if the answer supplied by user is correct
+	static void check(String question, String correctAnswer) {
+		// counting the question
+		nQuestions++;
+		String answer = ask(question);
+
+		// if answer is correct notify user and proceed to next question
+		if (answer.equals(correctAnswer)) {
+			JOptionPane.showMessageDialog(null,"Correct!");
+			// increase the count of the correct answer
+			nCorrect++;
+		} else {
+			// if answer is incorrect notify the user that it's incorrect and provide the correct answer letter
+			JOptionPane.showMessageDialog(null,"Incorrect. The correct answer is " + correctAnswer + ".");
+		}
+	}
+
+	public static void main(String[] args) {
+
+		// first set of questions to be asked
+		String question = "What is the longest river in the world?\n";
+		question += "A. Amazon. \n";
+		question += "B. Nile. \n";
+		question += "C. Congo. \n";
+		question += "D. Yangtze. \n";
+		question += "E. Mekong. \n";
+
+		// check if the answer is correct
+		check(question,"B");
+
+		question = "What is the tallest mountain in the world?\n";
+		question += "A. Mount K2. \n";
+		question += "B. Mount Lhotse. \n";
+		question += "C. Mount Everest. \n";
+		question += "D. Mount Kilimanjaro. \n";
+		question += "E. Mount Kangchenjunga. \n";
+
+		// check if the answer is correct
+		check(question,"C");
+
+		question = "What is the third planet from the Sun?\n";
+		question += "A. Venus. \n";
+		question += "B. Earth. \n";
+		question += "C. Mars. \n";
+		question += "D. Saturn. \n";
+		question += "E. Mercury. \n";
+
+		// check if the answer is correct
+		check(question,"B");
+
+		// displaying the score
+		JOptionPane.showMessageDialog(null,nCorrect + " correct out of " + nQuestions + " questions.");
+	}
 }
