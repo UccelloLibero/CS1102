@@ -1,78 +1,80 @@
-import javax.swing.JOptionPane;
-
 public class Quiz {
 
-	// static member variables: number of questions and number of correct answers initialized to the value 0
-	static int nQuestions = 0;
-	static int nCorrect = 0;
-
-	// static method that asks a question until the user provided a valid input
-	static String ask(String question) {
-		while (true) {
-			// asking a question
-			String answer = JOptionPane.showInputDialog(question);
-			// converting the captured answer into upper case letter
-			answer = answer.toUpperCase();
-			// evaluating the answer input from user
-			boolean valid = (answer.equals("A") || answer.equals("B") || answer.equals("C") || answer.equals("D") || answer.equals("E"));
-			// if input is a valid letter then we are returning the value
-			if (valid) return answer;
-			// if input is an invalid letter we warn the user and ask to provide the correct letter
-			JOptionPane.showMessageDialog(null,"Invalid answer. Please enter A, B, C, D, or E.");
-		}
-	}
-
-	// static method to check if the answer supplied by user is correct
-	static void check(String question, String correctAnswer) {
-		// counting the question
-		nQuestions++;
-		String answer = ask(question);
-
-		// if answer is correct notify user and proceed to next question
-		if (answer.equals(correctAnswer)) {
-			JOptionPane.showMessageDialog(null,"Correct!");
-			// increase the count of the correct answer
-			nCorrect++;
-		} else {
-			// if answer is incorrect notify the user that it's incorrect and provide the correct answer letter
-			JOptionPane.showMessageDialog(null,"Incorrect. The correct answer is " + correctAnswer + ".");
-		}
-	}
-
+	// constructing and using MultipleChoiceQuestion class
 	public static void main(String[] args) {
 
 		// first set of questions to be asked
-		String question = "What is the longest river in the world?\n";
-		question += "A. Amazon. \n";
-		question += "B. Nile. \n";
-		question += "C. Congo. \n";
-		question += "D. Yangtze. \n";
-		question += "E. Mekong. \n";
+		MultipleChoiceQuestion question = new MultipleChoiceQuestion(
+				"What is the longest river in the world?",
+				"Amazon.",
+				"Nile.",
+				"Congo.",
+				"Yangtze.",
+				"Mekong.",
+				"b");
 
-		// check if the answer is correct
-		check(question,"B");
+		// check if the answer is correct with call to class method check()
+		question.check();
 
-		question = "What is the tallest mountain in the world?\n";
-		question += "A. Mount K2. \n";
-		question += "B. Mount Lhotse. \n";
-		question += "C. Mount Everest. \n";
-		question += "D. Mount Kilimanjaro. \n";
-		question += "E. Mount Kangchenjunga. \n";
+		// uncomment as an option to show the result with call to class method showResults() after the first questions
+//		question.showResults();
 
-		// check if the answer is correct
-		check(question,"C");
+		// second set of questions to be asked
+		MultipleChoiceQuestion question2 = new MultipleChoiceQuestion(
+				"What is the tallest mountain in the world?",
+				"Mount K2.",
+				"Mount Lhotse.",
+				"Mount Everest.",
+				"Mount Kilimanjaro.",
+				"Mount Kangchenjunga.",
+				"c");
 
-		question = "What is the third planet from the Sun?\n";
-		question += "A. Venus. \n";
-		question += "B. Earth. \n";
-		question += "C. Mars. \n";
-		question += "D. Saturn. \n";
-		question += "E. Mercury. \n";
+		// check if the answer is correct with call to class method check()
+		question2.check();
 
-		// check if the answer is correct
-		check(question,"B");
+		// uncomment as an option to show the result with call to class method showResults()
+//		question2.showResults();
 
-		// displaying the score
-		JOptionPane.showMessageDialog(null,nCorrect + " correct out of " + nQuestions + " questions.");
+		// third set of questions to be asked
+		MultipleChoiceQuestion question3 = new MultipleChoiceQuestion(
+				"What is the third planet from the Sun?",
+				"Venus.",
+				"Earth.",
+				"Mars.",
+				"Saturn.",
+				"Mercury.",
+				"b");
+
+		// check if the answer is correct with call to class method check()
+		question3.check();
+
+		// fourth set of questions to be asked
+		MultipleChoiceQuestion question4 = new MultipleChoiceQuestion(
+				"What is cognition?",
+				"The ability to see, hear, or become aware of something through the senses.", // perception
+				"A biological system used by an organism for sensation, the process of gathering information about the world and responding to stimuli.", // sense
+				"The ability to acquire knowledge without recourse to conscious reasoning.", // intuition
+				"The mental action or process of acquiring knowledge and understanding through thought, experience and the senses.", // cognition
+				"The faculty of the brain by which data or information is encoded, stored, and retrieved when needed.", // memory
+				"d");
+
+		// check if the answer is correct with call to class method check()
+		question4.check();
+
+		// fifth set of questions to be asked
+		MultipleChoiceQuestion question5 = new MultipleChoiceQuestion(
+				"What is personality?",
+				"A three pound organ that is a seat of intelligence, interpreter of the senses, initiator of body movement, and controller of behavior, the source of all the qualities that define our humanity.", // brain
+				"The totality of the human mind, conscious and unconscious.", // psyche
+				"A nearly perfect sphere of hot plasma, heated to incandescence by nuclear fusion reactions in its core, radiating energy mainly as visible light and infrared radiation.", // The Sun
+				"The largest natural satellite in the Solar System relative to the size of its planet, and the fifth largest satellite in the Solar System overall.", // The Moon
+				"The combination of characteristics or qualities that form an individual's distinctive character.", // personality
+				"e");
+
+		// check if the answer is correct with call to class method check()
+		question5.check();
+
+		// show the results of the quiz with call to class method showResults()
+		question.showResults();
 	}
 }
